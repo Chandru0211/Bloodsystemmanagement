@@ -1,5 +1,11 @@
 package com.devops.bbm.util;
 
+/**
+ * @author : Praveenkumar
+ * @Description : This class is expected to deliver connection objects for 
+ * 				  mysql db (bloodbank)
+ */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +18,9 @@ public class DBUtil {
 	private static String db_password="devops";
 	private static String class_name="com.mysql.cj.jdbc.Driver";
 	
-
+/**
+ * @return Connection
+ */
 	public static Connection getConnection() {
 		try {
 			Class.forName(class_name);
