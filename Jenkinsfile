@@ -38,7 +38,7 @@ pipeline {
         }
 	stage ('Artifactory Deploy'){
 		//when {
-			branch "master"
+		//	branch "master"
 		//}
 		steps{
 		//dir("project_templates/java_project_template"){
