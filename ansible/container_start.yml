@@ -1,0 +1,33 @@
+# tasks file for ansible-dockerized-bloodbank to start containers
+- hosts: container-host
+  tasks:
+  - name: "Launch database container"
+    docker_container: 
+      name : mysql_container
+      image: mysql:latest
+      command: --default-authentication-plugin=mysql_native_password
+      env:
+        MYSQL_ROOT_PASSWORD: s3cret
+        MYSQL_DATABASE: bloodbank
+        MYSQL_USER : user
+        MYSQL_PASSWORD: password
+      ports:
+        - "32795:3306"
+      volumes:
+        - ../docker/mysql:/docker-entrypoint-initdb.d
+  - name: "Build Tomcat container"
+    docker_image:
+      name: tomcat:custom
+      path: ../docker/
+      state: build
+  - name: "Launch tomcat container"
+    docker_container:
+      name: tomcat_container
+      image: tomcat:custom
+      ports:
+        - "5050:8080"
+      restart: yes
+      volumes:
+        - ../docker/target/:/usr/local/tomcat/webapps
+      links:
+        - mysql_container

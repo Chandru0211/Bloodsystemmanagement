@@ -1,0 +1,17 @@
+[local]
+localhost ansible_connection=local
+
+[container-host]
+10.199.1.128 ansible_connection=local
+
+[tomcat-container]
+172.17.0.3
+
+[mysql-container]
+172.17.0.2
+
+[jfrog-server]
+10.199.1.128 ansible_connection=local
+
+[ansible-server]
+10.199.1.128 ansible_connection=local 

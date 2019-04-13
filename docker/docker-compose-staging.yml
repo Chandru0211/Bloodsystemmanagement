@@ -1,0 +1,23 @@
+db:
+  image: mysql:latest
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+    MYSQL_ROOT_PASSWORD: s3cret
+    MYSQL_DATABASE: bloodbank
+    MYSQL_USER: user
+    MYSQL_PASSWORD: password
+  ports:
+    - "32795:3306"
+  container_name: mysql_container
+  volumes:
+    - ./mysql/:/docker-entrypoint-initdb.d
+
+tomcat:
+  image: tomcat:9
+  ports:
+    - "5050:8080"
+  container_name: tomcat_container
+  volumes:
+    - ./target/:/usr/local/tomcat/webapps
+  links:
+    - db

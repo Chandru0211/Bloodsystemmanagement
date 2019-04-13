@@ -1,0 +1,24 @@
+# tasks file for ansible-playbook to download artifact from artifactory
+- hosts: ansible-server
+  tasks:
+  - name: "Clean target path"
+    file:
+     state: absent
+     path: ../docker/target
+
+  - name: "Create target path"
+    file:
+     state: directory
+     path: ../docker/target
+
+  - name: "download latest Artifact from Jfrog"
+    get_url:
+      url: http://10.199.9.175:5040/artifactory/libs-release-local/com/devops/bbm/bloodbank-management/{{ version }}/bloodbank-management-{{ version }}.war
+      headers:  "X-JFrog-Art-API:AKCp5cc74McmhvTiR2KVpVFetJMHkvFxcw1182yime9DZyLeQDeKBiRm4hD8vNfe4V9HLgVFJ"
+      dest: ../docker/target/
+      owner: jenkins
+      group: jenkins
+      mode: 0777
+
+  - name: "Rename Artifact"
+    command: mv ../docker/target/bloodbank-management-{{ version }}.war ../docker/target/BloodBank.war

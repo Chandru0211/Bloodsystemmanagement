@@ -9,3 +9,10 @@
 [maven]
 /build/
 /target/
+
+[ansible]
+logs/
+*.retry
+
+[war]
+*.war
